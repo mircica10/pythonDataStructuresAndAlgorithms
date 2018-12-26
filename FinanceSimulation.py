@@ -1,16 +1,12 @@
 import math
 
-def testDifferentInterestRates(func):
-  interestRates = [0.2, 0.5, 0.7, 1.0, 1.3, 1.5, 1.7, 2, 2.3, 2.7, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 7.0, 8.0, 9.0, 10.0]
-  borrowedSums = [450000]
-  numberOfYears = [15, 20, 25, 30]
-  for years in numberOfYears:
-    for interestRate in interestRates:
-      for borrowedSum in borrowedSums:
-        monthlyRate = math.ceil(func(borrowedSum, years, interestRate))
-        totalSum = monthlyRate * 12 * years
-        print(f'Sum:{borrowedSum} Years:{years} Rate:{interestRate} Total Sum:{totalSum} Monthly Rate:{monthlyRate}')
-
+def compundInterestRateForDeposit(originalSum, annualInterestRate, frequency, timeLengthYears): 
+  added = 1 + ( (annualInterestRate * 1.0) / frequency )
+  totalPeriod = math.floor(frequency * (timeLengthYears / 12))
+  accumulatedAdded = 1
+  for i in range(1,totalPeriod + 1):
+    accumulatedAdded = accumulatedAdded * added
+  return math.ceil(originalSum * accumulatedAdded)
 
 def printDifferentInterestRates(func):
   interestRates = [0.2, 0.5, 0.7, 1.0, 1.3, 1.5, 1.7, 2, 2.3, 2.7, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 7.0, 8.0, 9.0, 10.0]
