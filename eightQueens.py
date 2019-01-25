@@ -11,7 +11,7 @@ def queens(i, solution):
         isValid = valid(x,y,solution)
         if(isValid):
           solution.append((x,y))
-          queens(x, solution)
+          queens(x + 1, solution)
           solution.pop()
 
 def printSolution(solution):
