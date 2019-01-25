@@ -1,5 +1,37 @@
-
+import sys
 import math
+
+def statements():
+  a,b,c = "ABC"
+  assert b == "B"
+  t = [0,1]
+  del t[0]
+  assert len(t) == 1
+  typeA = str(type(a))
+  assert typeA == "<class 'str'>"
+
+statements()
+
+def numbersTest():
+  imaginar = 4 + 2j
+  assert imaginar.imag == 2
+  assert 0xa == 10
+  assert 5 / 2 == 2.5
+  assert ~10 == -11
+  assert 2<<2 == 8
+  assert 2**3 == 8
+  assert str(round(23.543, 1)) == "23.5"
+
+numbersTest()
+
+def dictionaryTest():
+  dictionary = {'first':1, 'second':2}
+  assert dictionary['first'] == 1
+  assert len(dictionary) == 2
+  assert ('first' in dictionary) == True
+  assert dictionary.get('first') == 1
+
+dictionaryTest()
 
 def repeat(s, numberOfTime = 3, exclamation=False):
   result = s
@@ -69,37 +101,46 @@ def playWithLists():
   for i in myList[::1]:
     print(i)
 
-#playWithLists()
 
-#Pnew = P(1 + r/n)power(n*t)
-#P - original sum
-#r - annualinterest rate
-#n - frequncy - 12 for one year
-#t - time legth years
-def compundInterestRate(originalSum, annualInterestRate, frequency, timeLengthYears): 
-  added = 1 + ( (annualInterestRate * 1.0) / frequency )
-  totalPeriod = math.floor(frequency * (timeLengthYears / 12))
-  accumulatedAdded = 1
-  for i in range(1,totalPeriod + 1):
-    accumulatedAdded = accumulatedAdded * added
-  return math.ceil(originalSum * accumulatedAdded)
+evens = []
+for i in range(1, 30):
+  if i % 2 == 0:
+    evens.append(i)
 
+#list comprehension
+evens2Digits = [i for i in evens if i > 10]
 
+def listAsStack():
+  myList = [1,2]
+  myList.append(3)
+  assert myList == [1,2,3]
+  myList.pop()
+  assert myList == [1,2]
 
-#testCompound = compundInterestRate(1500, 0.043, 4, 6)
-#print(math.ceil(testCompound))
+listAsStack()
 
+def listAsQueues():
+  myList = [1,2]
+  myList.append(3)
+  assert myList == [1,2,3]
+  myList.pop(0)
+  assert myList == [2,3]
 
-#testDifferentInterestRates()
+listAsQueues()  
 
+import copy
 
+def copyList():
+  #shallow copy  -nested objects will not be copied
+  myList = [1,2,[3,4]]
+  newList = list(myList)
+  newList[2][0] = 10
+  assert myList == [1,2,[10,4]]
+  #deep copy
+  newList = copy.deepcopy(myList)
+  newList[2][0] = 3
+  assert myList == [1,2,[10,4]]
+  assert newList == [1,2,[3,4]]
 
+copyList()
 
-#print(loanPaymentMonthly(100000, 30, 6))
-#print(sumBack(100000, 30, 0.06))
-
-#testDifferentInterestRates(loanPaymentMonthly)
-
-
-#loanWithInitialFixedRate(100000, 25, 4.0, 5, 3.0)
-#loanWithInitialFixedRate(450000, 25, 5.0)
