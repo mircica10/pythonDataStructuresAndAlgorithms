@@ -1,18 +1,21 @@
 def queensHelper():
   solution = []
-  queens(0, solution)
+  BOARD_SIZE = 4
+  queens(0, solution, BOARD_SIZE)
 
-def queens(i, solution):
-  if( len(solution) == 8):
+#we don't have to check for i > 8, as if i > 8, it means 8 queens are already on the board so there is no 
+#place for a new one, as the loop for j runs until 8 and a new one will be placed on a spot on the same line
+#with another one, so the valid function will fail. hence, the test i < 8 is implicit
+def queens(i, solution, boardSize):
+  if (len(solution) == boardSize):
     printSolution(solution)
   else:
-    for x in range(i, 8):
-      for y in range(0, 8):
-        isValid = valid(x,y,solution)
-        if(isValid):
-          solution.append((x,y))
-          queens(x + 1, solution)
-          solution.pop()
+    for j in range(0, boardSize):
+      isValid = valid(i, j, solution)
+      if(isValid):
+        solution.append((i,j))
+        queens(i + 1, solution, boardSize)
+        solution.pop()
 
 def printSolution(solution):
   print("solution")
