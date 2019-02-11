@@ -12,11 +12,6 @@ class Sudoku:
     i = 0
     j = 0
     grid = self.grid
-    for k in range(self.size):
-      gridTemp = []
-      for k in range(self.size):
-        gridTemp.append(0)
-      grid.append(gridTemp)
     self.solveSudoku(i, j, grid)       
 
   def solveSudoku(self, i, j, grid):
