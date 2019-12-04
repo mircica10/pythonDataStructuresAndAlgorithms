@@ -1,0 +1,30 @@
+
+MAX_LEN = 6
+MAX_VALUE = 9
+solCount = 0
+
+
+def lastElem(lst):
+    length = len(lst)
+    return 1 if length == 0 else lst[length - 1]
+
+def calculateAdventDay4(step, tempSol):
+    if(step == MAX_LEN):
+        global solCount
+        solCount = solCount + 1
+        return
+          
+    for i in range(lastElem(tempSol), MAX_VALUE + 1):
+            tempSol.append(i)
+            calculateAdventDay4(step + 1, tempSol)
+            tempSol.pop()
+    
+
+def calculateAdventDay4Help(): 
+    step = 0
+    tempSol = []
+    calculateAdventDay4(step, tempSol)
+    print(solCount)
+  
+
+calculateAdventDay4Help()    
