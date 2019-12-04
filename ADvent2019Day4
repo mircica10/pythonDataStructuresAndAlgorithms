@@ -1,19 +1,37 @@
-
 MAX_LEN = 6
 MAX_VALUE = 9
 solCount = 0
-
+INPUT_LOW = 136760
+INPUT_HIGH = 595730
 
 def lastElem(lst):
     length = len(lst)
     return 1 if length == 0 else lst[length - 1]
 
+def hasConsecutiveDoubles(lst):
+    for i in range(len(lst) - 1):
+        if (lst[i] == lst[i + 1]):
+            return True
+    return False;    
+
+def convertArrayToInt(array):
+    number = 0
+    power = 1
+    array = reversed(array)
+    for i in array:
+        number = number + i * power
+        power = power * 10
+    return number    
+
 def calculateAdventDay4(step, tempSol):
+    global solCount
     if(step == MAX_LEN):
-        global solCount
-        solCount = solCount + 1
-        return
-          
+        number = convertArrayToInt(tempSol)
+        hasDoubles = hasConsecutiveDoubles(tempSol)
+        if(number > INPUT_LOW and number < INPUT_HIGH and hasDoubles):            
+            solCount = solCount + 1
+            #print(tempSol)
+        return          
     for i in range(lastElem(tempSol), MAX_VALUE + 1):
             tempSol.append(i)
             calculateAdventDay4(step + 1, tempSol)
@@ -27,4 +45,4 @@ def calculateAdventDay4Help():
     print(solCount)
   
 
-calculateAdventDay4Help()    
+calculateAdventDay4Help() 
