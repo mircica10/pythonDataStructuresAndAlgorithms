@@ -12,7 +12,7 @@ def hasConsecutiveDoubles(lst):
     for i in range(len(lst) - 1):
         if (lst[i] == lst[i + 1]):
             return True
-    return False;    
+    return False   
 
 
 def hasConsecutiveDoublesEven2(lst):
@@ -34,7 +34,7 @@ def hasConsecutiveDoublesEven2(lst):
 #must be at least one with 2 only
 def hasConsecutiveDoublesEven(lst):
     isDoublePresent = False
-    countSame = 0;
+    countSame = 0
     i = 1
     while (i < len(lst)):
         while ( i < len(lst) and lst[i] == lst[i - 1] ):
