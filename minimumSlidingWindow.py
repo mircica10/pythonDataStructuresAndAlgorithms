@@ -14,6 +14,7 @@ trebuie interschimbate în vector.
 """
 
 from heapImplementation import Heap
+from collections import deque
 
 class MinSlidingWindow():
     def __init__(self, arr, k):
@@ -22,7 +23,35 @@ class MinSlidingWindow():
         self.mapArrayToHeap = []
         self.mapHeapToArray = []
 
-    def solve(self):
+
+    def solveWithDeque(self):
+        minimums = []
+        coada = deque()
+        for index, current_element in enumerate(self.arr):
+            # we discard the elements bogger than the current one, as they will never be minimum after
+            while len(coada) > 0:
+                stack_peek = coada[-1]
+                if stack_peek[1] > current_element:
+                    coada.pop()
+                else:
+                     break
+            # add tuple current element AND its index
+            coada.append((index, current_element))
+            
+            # we discard the elements with the index not in the window
+            left_margin = index - self.k
+            while len(coada) > 0 and left_margin >= 0:
+                queue_peek = coada[0]
+                if queue_peek[0] <= left_margin:
+                    coada.popleft()
+                else:
+                    break
+            # minimum is the first element
+            minimums.append(coada[0][1])
+        return minimums    
+
+
+    def solveWithHeap(self):
         minimus = []
         heap = Heap()
         for index, element in enumerate(self.arr):
@@ -41,14 +70,30 @@ def test():
     k = 3
     answer = [0,0,0,1, 2,3,4]
     sol = MinSlidingWindow(arr, k)
-    tentative = sol.solve()
+    tentative = sol.solveWithHeap()
     assert(answer == tentative)
 
     arr = [0,1,2,3,4]
     k = 2
     answer = [0, 0, 1, 2, 3]
     sol = MinSlidingWindow(arr, k)
-    tentative = sol.solve()
+    tentative = sol.solveWithHeap()
     assert(answer == tentative)
+
+    arr = [0,1,2,3,4,5,6]
+    k = 3
+    answer = [0,0,0,1, 2,3,4]
+    sol = MinSlidingWindow(arr, k)
+    tentative = sol.solveWithDeque()
+    assert(answer == tentative)
+
+    arr = [0,1,2,3,4]
+    k = 2
+    answer = [0, 0, 1, 2, 3]
+    sol = MinSlidingWindow(arr, k)
+    tentative = sol.solveWithDeque()
+    assert(answer == tentative)
+
+
 
 test()
