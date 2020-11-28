@@ -19,7 +19,7 @@ class CoolSequence():
         
         for index in range(i, j):
             curr = self.array[index]
-            if vc[index] != 0:
+            if vc[curr] != 0:
                 return False
             vc[curr] =  1
             minim = minim if curr >= minim else curr  
@@ -29,11 +29,12 @@ class CoolSequence():
 
     def findMaxSequenceCool(self):
         maxSeqLength = 1
-        nrMaxSeq = 0
+        nrMaxSeq = 1
 
         for i in range(len(self.array)):
             maxim = -math.inf
             minim = math.inf
+            # vector caracteristic
             vc = [0] * self.maxN
             vc[self.array[i]] = 1
 
@@ -47,8 +48,8 @@ class CoolSequence():
                 minim = minim if curr >= minim else curr  
                 maxim = maxim if curr <= maxim else curr  
                 # cool sequence
-                if maxim - minim == j - i - 1:
-                    seqLength = maxim - minim
+                if maxim - minim == j - i:
+                    seqLength = maxim - minim + 1
                     if seqLength == maxSeqLength:
                         nrMaxSeq += 1
                     elif seqLength > maxSeqLength:
@@ -58,6 +59,23 @@ class CoolSequence():
         return (maxSeqLength, nrMaxSeq)
 
 
+def test():
+    a = [7, 4, 5, 6, 8, 4, 5, 7, 4, 3, 2]  
+    maxN = 5000
+    maxK = 1000
+    answer = (5, 2)
+    sol = CoolSequence(a, maxN, maxK)
+    tentative = sol.findMaxSequenceCool()
+    assert(answer == tentative)
+
+    tentative2 = sol.isSequenceCool(0, 4)
+    assert (tentative2 == True)
+    tentative3 = sol.isSequenceCool(0, 5)
+    assert (tentative3 == True)
+    tentative3 = sol.isSequenceCool(0, 6)
+    assert (tentative3 == False)
     
+
+test()
     
 
