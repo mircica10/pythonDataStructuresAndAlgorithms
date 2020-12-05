@@ -2,6 +2,7 @@
 https://www.infoarena.ro/problema/ferma3
 """
 
+
 class Cell():
     def __init__(self, color):
         self.color = color
