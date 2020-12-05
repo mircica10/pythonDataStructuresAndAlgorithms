@@ -6,7 +6,6 @@ class Cell():
     def __init__(self, color):
         self.color = color
         self.visited = False
-        self.area = 0
         self.id = 0
         
 class Farm():
@@ -48,6 +47,7 @@ class Farm():
         self.max_areas[id] = max_area
         self.cells[i][j].area = max_area
         self.cells[i][j].id = id
+        
         self.max_area = max(self.max_area, max_area)
 
     def floodFill(self, color, i, j, id):
