@@ -30,25 +30,29 @@ class Farm():
                 j >= 0 and j < self.m and
                 self.cells[i][j].visited == False and
                 self.cells[i][j].color == color)
-    
-    def getUniqueId(self, i, j):
-        return i * 37 + j
+
 
     def calculateMaxArea(self):
+        self.calculateParcelAreas()
+        for area in self.max_areas:
+            self.max_area = max(self.max_area, self.max_areas[area])
+
+
+    def calculateParcelAreas(self):
         for i in range(self.n):
             for j in range(self.m):
                 id = self.getUniqueId(i, j)
                 if self.cells[i][j].visited == False:
-                    self.getParcelArea(self.cells[i][j].color, i, j, id)
+                    self.calculateParcelArea(self.cells[i][j].color, i, j, id)
 
-    def getParcelArea(self, color, i, j, id):
+    def getUniqueId(self, i, j):
+        return i * 37 + j
+    
+    def calculateParcelArea(self, color, i, j, id):
         max_area = self.floodFill(color, i, j, id)
-        
+                
         self.max_areas[id] = max_area
-        self.cells[i][j].area = max_area
         self.cells[i][j].id = id
-        
-        self.max_area = max(self.max_area, max_area)
 
     def floodFill(self, color, i, j, id):
         if not self.validPosition(color, i, j):
