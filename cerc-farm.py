@@ -15,8 +15,6 @@ class Farm():
         self.m = len(farm[0])
         self.n = len(farm)
         self.cells = []
-        self.max_area = 0
-        self.max_area_modified = 0
         self.max_areas = {}
         self.initCells()
     
@@ -34,9 +32,13 @@ class Farm():
 
 
     def calculateMaxArea(self):
+        max_area = 0
+
         self.calculateParcelAreas()
+        
         for area in self.max_areas:
-            self.max_area = max(self.max_area, self.max_areas[area])
+            max_area = max(max_area, self.max_areas[area])
+        return max_area
 
 
     def calculateParcelAreas(self):
@@ -67,6 +69,7 @@ class Farm():
         return area
     
     def calculateMaxAreaModified(self):
+        max_area_modified = 0
         for i in range(self.n):
             for j in range(self.m):
                 colors_next = {}
@@ -90,11 +93,13 @@ class Farm():
                         checked_ids.append(curr_id)
     
                 for c in colors_next:
-                    self.max_area_modified = max(colors_next[c] + 1, self.max_area_modified)
+                    max_area_modified = max(colors_next[c] + 1, max_area_modified)
+        return max_area_modified    
     
     def solve(self):
-        self.calculateMaxArea()
-        self.calculateMaxAreaModified()
+        max_area = self.calculateMaxArea()
+        max_area_modified = self.calculateMaxAreaModified()
+        return (max_area, max_area_modified)
 
 def test():
     farm = [
@@ -107,8 +112,8 @@ def test():
         list("aaaaaaag")
     ]
     f = Farm(farm)
-    f.solve()
-    assert(f.max_area == 11)
-    assert(f.max_area_modified == 20)
+    (max_area, max_area_modified) = f.solve()
+    assert(max_area == 11)
+    assert(max_area_modified == 20)
     
 test()
