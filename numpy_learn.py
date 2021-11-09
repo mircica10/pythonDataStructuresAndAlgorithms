@@ -198,5 +198,5 @@ if print_universal_functions:
     print(f'first function ran for {start_of_f2 - start_of_f1} and the second for {end - start_of_f2}')
     print(f' universal function work between vectors also: \n {np.arange(5) / np.arange(1,6)}')
     x = np.arange(9).reshape(3,3)
-    print (f'power works ok \n {x ** 2}')
+    print (f'power works ok \n {x ** 2 }')
 
