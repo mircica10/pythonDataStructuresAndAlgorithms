@@ -235,7 +235,7 @@ if print_universal_functions:
     print(f'log10(x) = {np.log10(x)}')
 
     x = [0, 0.001, 0.01, 0.1]
-    print(f'exp and log for small values x = {x}')
+    print(f'exp and log for small values x = {x}') 
     print(f'exp(x) - 1 = {np.expm1(x)}')
     print(f'log(1 + x) = {np.log1p(x)}')
 
