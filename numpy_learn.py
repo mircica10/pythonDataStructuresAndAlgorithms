@@ -1,6 +1,7 @@
 import array
 import numpy as np
 import time
+from scipy import special
 
 
 print_create_lists = False
@@ -200,3 +201,55 @@ if print_universal_functions:
     x = np.arange(9).reshape(3,3)
     print (f'power works ok \n {x ** 2 }')
 
+    x = np.arange(5)
+    print(f'original array: {x}')
+    print(f'adding 5 to the the whole array {x + 5}')
+    print(f'adding 5 without wrapper  {np.add(x,5)}')
+    print(f'power 2 the whole array {x ** 2}')
+    
+    x = np.array([4 - 4j, 3 + 1j])
+    print(f'absolute of array of complex numbers {np.abs(x)}')
+
+    theta = np.linspace(0, np.pi, 3)
+    print(f'trigonometric functions theta = {theta}')
+    print(f'sin(theta) = {np.sin(theta)}')
+    print(f'cos(theta) = {np.cos(theta)}')
+    print(f'tan(theta) = {np.tan(theta)}')
+
+    x = [-1, 0, 1]
+    print(f'invers trigonometric functions x = {x}')
+    print(f'arcsin(x) = {np.arcsin(x)}')
+    print(f'arccos(x) = {np.arccos(x)}')
+    print(f'arctan(x) = {np.arctan(x)}')
+
+    x = [1, 2, 3]
+    print(f'exponets functions x = {x}')
+    print(f'e^x = {np.exp(x)}')
+    print(f'2^x = {np.exp2(x)}')
+    print(f'3^x = {np.power(3, x)}')
+
+    x = [1, 2, 4, 10]
+    print(f'logaritmic functions {x}')
+    print(f'ln(x) = {np.log(x)}')
+    print(f'log2(x) = {np.log2(x)}')
+    print(f'log10(x) = {np.log10(x)}')
+
+    x = [0, 0.001, 0.01, 0.1]
+    print(f'exp and log for small values x = {x}')
+    print(f'exp(x) - 1 = {np.expm1(x)}')
+    print(f'log(1 + x) = {np.log1p(x)}')
+
+    x = [1, 5, 10]
+    print(f'array for gamma functions x = {x}')
+    print(f'gamma(x) = {special.gamma(x)}')
+    print(f'ln|gamma(x) = {special.gammaln(x)}')
+    print(f'beta(x, 2) = {special.beta(x, 2)}')
+
+    x = np.array([0, 0.3, 0.7, 1.0])
+    print(f'error function (integral of gauss) for x = {x} ')
+    print(f'erf(x) = {special.erf(x)}')
+    print(f'erfc(x) = {special.erfc(x)}')
+    print(f'erfinv(x) = {special.erfinv(x)}')
+
+
+    
