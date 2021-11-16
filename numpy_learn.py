@@ -1,6 +1,7 @@
 import array
 import numpy as np
 import time
+from numpy.lib.function_base import diff
 from scipy import special
 
 
@@ -10,7 +11,8 @@ print_array_slicing = False
 print_array_reshaping = False
 print_array_concatenate = False
 print_array_split = False
-print_universal_functions = True
+print_universal_functions = False
+print_sort = True
 
 
 ########################
@@ -251,5 +253,73 @@ if print_universal_functions:
     print(f'erfc(x) = {special.erfc(x)}')
     print(f'erfinv(x) = {special.erfinv(x)}')
 
+##################
+# array sort
+##################
 
+if print_sort:
+    x = np.array([2,1,3,5,4])
+    y = np.sort(x)
+    print(y)
+    x.sort()
+    print(x)
+    x = np.argsort([2,1,4,3,5])
+    print(x)
+    
+    rand = np.random.RandomState(42)
+    X = rand.randint(0,10, (4,6))
+    print(f'matrix: {X}')
+    print(f'sorted by row \n {np.sort(X, axis = 1)}')
+    print(f'sorted by column \n {np.sort(X, axis = 0)}')
+    
+    x = np.array([7,2,3,1,6,5,4])
+    y = np.partition(x, 3)
+    print(y)
+    print('\033c') # clear screen
+    
+
+    X = rand.rand(10,2)
+    print(f'original: \n {X}')
+    import matplotlib.pyplot as plt
+   
+    Y = X[:,np.newaxis,:]
+    Z = X[np.newaxis,:,:]
+    print(f' new axis in the middle with shape {np.shape(Y)} \n {Y}')
+    print(f' new axis in the biginning with shape {np.shape(Z)} \n {Z}')
+
+    differences = Y - Z
+    print(f'differences with shape {np.shape(differences)} \n {differences}')
+    sq_differences = differences ** 2
+    print(f'squared differences with shape {np.shape(sq_differences)} \n {sq_differences} ')
+    dist_sq = sq_differences.sum(-1)
+    print(f'squared distance \n {dist_sq}')
+    print(f"diagonal must be 0: {dist_sq.diagonal()}")
+    nearest = np.argsort(dist_sq, axis=1)
+    print(f'nearest \n {nearest}')
+    K = 2
+    nearest_partition = np.argpartition(dist_sq, K + 1, axis = 1)
+    print(f'nearest partition \n {nearest_partition}')
+        
+    plt.scatter(X[:, 0], X[:, 1], s = 100)
+    # draw lines from its points to his K nearest neighbors
+    K = 2
+    for i in range(X.shape[0]):
+        for j in nearest_partition[i,0: K + 1]:
+            # plot a line from X[i] to X[j]
+            plt.plot(*zip(X[j], X[i]), color = 'black')
+    plt.show()
+    
+
+    x = np.array([[1,2],[3,4],[5,6]])
+    y = x[:, np.newaxis, :]
+    z = x[np.newaxis, :, :]
+    print(f'x \n {x}')
+    print(f'y \n {y}')
+    print(f'z \n {z}')
+    print(f' y + z \n {y + z}')
+    print(f'size x = {np.shape(x)} y size = {np.shape(y)} z size = {np.shape(z)}')
+    print(f'sum is \n {(y + z).sum(-1)}')
+
+    print(f'nearest partitinon size {np.shape(nearest_partition)}')
+    print(f'test np: {nearest_partition[0][0:3]}')
     
