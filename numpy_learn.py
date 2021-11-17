@@ -12,7 +12,8 @@ print_array_reshaping = False
 print_array_concatenate = False
 print_array_split = False
 print_universal_functions = False
-print_sort = True
+print_sort = False
+print_structured_array = True
 
 
 ########################
@@ -322,4 +323,30 @@ if print_sort:
 
     print(f'nearest partitinon size {np.shape(nearest_partition)}')
     print(f'test np: {nearest_partition[0][0:3]}')
-    
+
+
+if print_structured_array:
+    name = ['alice', 'bob', 'cathy', 'doug']
+    age = [25, 45, 37, 19]
+    weight = [55.0, 85.5, 68.0, 61.5]
+
+    x = np.zeros(4, dtype = int)
+    data = np.zeros(4, dtype={'names':('name', 'age', 'weight'),
+                                'formats':('U10', 'i4', 'f8')})
+    print(data.dtype)
+    data['name'] = name
+    data['age'] = age
+    data['weight'] = weight
+    print(data)
+    print(data['name'])
+    print(data[0])
+    print(data[-1]['name'])
+    print(data[[data['age'] < 30]])
+
+    tp = np.dtype([('id', 'i8'), ('mat','f8',(3, 3))])
+    X = np.zeros(1, dtype=tp)
+    print(X[0])
+    print(X)
+    data_rec = data.view(np.recarray)
+    print(data_rec.age)
+
