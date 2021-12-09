@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd
 
-PRINT_INTRO = True
+PRINT_INTRO = False
+PRINT_IDX_SEL = False
+PRINT_MULTI_INDEX = True
 
 if PRINT_INTRO:
     # introduction Series (is like a hashmap)
@@ -65,4 +67,50 @@ if PRINT_INTRO:
     print(f'index intersection: \n {indA & indB}')
     print(f'index reunion: \n {indA | indB}')
     print(f'index simmetric difference: \n {indA ^ indB}')
+
+if PRINT_IDX_SEL:
+    data  = pd.Series([0.25, 0.5, 0.75, 1.0], index = ['a', 'b', 'c', 'd'])
+    print(data['b'])
+    print(f'keys {data.keys()}')
+    print(list(data.items()))
+    # extend Series
+    data['e'] = 1.25
+    print(list(data.items()))
+    print('slicing an implicit index: \n' + str(data['a':'c']))
+    print('slicing by implicit integter index \n' + str(data[0:2]))
+    print('slicing by masking \n' + str(data[(data > 0.3) & (data < 0.8)]))
+    print('########################')
+    population_dict = {'California':38000000,
+                       'Texas':26000000,
+                       'Florida':19000000,
+                       'New York':19000000}
+    population = pd.Series(population_dict)
+    area_dict = {'California':420000,'Texas':700000,'Florida':170000,'New York':140000}
+    area = pd.Series(area_dict)
+    data = pd.DataFrame({'population':population,
+                            'area':area})
+    data['density'] = data['population'] / data['area']
+    print(data)
+    print(data.T)
+    print(data.values[0])
+    print(data.population)
+    print(data['population'])
+    print('##################################')
+    print("### fun with loc, iloc and idx ###")
+    print(f"first 2 lines \n {data.iloc[0:2]}")
+    print(f"first 2 lines and 2 columns \n {data.iloc[:3,:2]}")
+    print(f"explicit index \n {data.loc[:'Florida', :'area']}")
+    print("masking and fancy indexing \n " + str(data.loc[data.density > 80, ['population','density']]))
+
+
+if PRINT_MULTI_INDEX:
+    index = [('California', 2000), ('California', 2010), 
+            ('New York', 2000), ('New York', 2010),
+            ('Texas', 2000), ('Texas', 2010)]
+    populations = [33000000, 37000000, 18000000, 19000000, 20000000, 25000000]
+    pop = pd.Series(populations, index = index)
+    print(pop)
+    print(pop[('California', 2010):('Texas', 2000)]) # already sorted, that's why it works
+    
+
 
