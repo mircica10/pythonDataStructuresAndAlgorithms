@@ -5,7 +5,7 @@ from sqlalchemy.engine.create import create_engine
 import pandas as pd
 
 def copy_row():
-    conn = create_engine('postgresql://postgres:ANTAnanarivo1234@localhost:5432/spiel_bk')
+    conn = create_engine('postgresql://postgres:postgres@localhost:5432/spiel_bk')
     source_table = 'test.tweet'
     dest_table = 'test.tweet_desc'
 
@@ -17,7 +17,7 @@ def copy_row():
             conn.execute(f'insert into {dest_table}(comment) values(\'{a[0]}\') ')
         
 def copy_table():
-    engine = create_engine('postgresql://postgres:ANTAnanarivo1234@localhost:5432/spiel_bk')
+    engine = create_engine('postgresql://postgres:postgres@localhost:5432/spiel_bk')
     source_table = 'test.tweet'
     dest_table = 'tweet_desc'
     dbConnection = engine.connect();
